@@ -13,13 +13,13 @@ def main() -> None:
         raise RuntimeError(message)
 
     command = [
-        "uv",
+        sys.executable,
+        "-m",
         "pip",
         "install",
-        "--python",
-        sys.executable,
         "--force-reinstall",
         "--no-deps",
+        "--no-cache-dir",
         "--no-binary",
         "lightgbm",
         "--config-settings=cmake.define.USE_OPENMP=OFF",

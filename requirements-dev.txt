@@ -1,0 +1,18 @@
+# Pinned development tooling (ruff, pytest, mypy) on top of the runtime pins.
+#
+#     python -m pip install -r requirements-dev.txt
+#     python -m pip install -e ".[dev]"
+
+-r requirements.txt
+
+execnet==2.1.2
+iniconfig==2.3.0
+librt==0.8.1
+mypy==1.20.0
+mypy-extensions==1.1.0
+pathspec==1.0.4
+pluggy==1.6.0
+pytest==9.0.3
+pytest-xdist==3.8.0
+ruff==0.15.9
+types-pyyaml==6.0.12.20260408

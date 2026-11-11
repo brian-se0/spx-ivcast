@@ -48,25 +48,29 @@ The repository includes explicit model hardware profiles:
   - `configs/models/neural_surface.mac_cpu.yaml`
   - `configs/models/lightgbm.mac_cpu.yaml`
 
-The default Windows-first configs remain CUDA-oriented. The Mac CPU refresh run used:
+The default Windows-first configs remain CUDA-oriented. The Mac CPU profile runs
+inside a Python `3.13.5` virtual environment with:
 
 ```bash
-uv sync --extra dev
-uv run python scripts/install_mac_lightgbm_no_openmp.py
-uv run python scripts/check_runtime.py \
+python3.13 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements-dev.txt
+python -m pip install -e ".[dev]"
+python scripts/install_mac_lightgbm_no_openmp.py
+python scripts/check_runtime.py \
   --raw-config-path configs/data/raw.mac.yaml \
   --run-profile-name mac_cpu \
   --neural-config-path configs/models/neural_surface.mac_cpu.yaml \
   --lightgbm-config-path configs/models/lightgbm.mac_cpu.yaml
 
-uv run python scripts/06_run_walkforward.py \
+python scripts/06_run_walkforward.py \
   --raw-config-path configs/data/raw.mac.yaml \
   --run-profile-name mac_cpu \
   --neural-config-path configs/models/neural_surface.mac_cpu.yaml \
   --lightgbm-config-path configs/models/lightgbm.mac_cpu.yaml
-uv run python scripts/07_run_stats.py --raw-config-path configs/data/raw.mac.yaml --run-profile-name mac_cpu
-uv run python scripts/08_run_hedging_eval.py --raw-config-path configs/data/raw.mac.yaml --run-profile-name mac_cpu
-uv run python scripts/09_make_report_artifacts.py --raw-config-path configs/data/raw.mac.yaml --run-profile-name mac_cpu
+python scripts/07_run_stats.py --raw-config-path configs/data/raw.mac.yaml --run-profile-name mac_cpu
+python scripts/08_run_hedging_eval.py --raw-config-path configs/data/raw.mac.yaml --run-profile-name mac_cpu
+python scripts/09_make_report_artifacts.py --raw-config-path configs/data/raw.mac.yaml --run-profile-name mac_cpu
 ```
 
 The Mac CPU profile records any carried-forward forecast artifacts in
@@ -108,8 +112,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts/run_pipeline_windows
 
 ## Requirements
 
-- Python `3.13.5`
-- `uv`
+- Python `3.13.5` from python.org, with its bundled `venv` and `pip`
 - GNU Make
 
 Windows note:
@@ -119,6 +122,24 @@ Windows note:
 - The official LightGBM HPO/training path assumes GPU mode rather than a CPU fallback.
 
 ## Setup
+
+Create and activate a virtual environment with the Python `3.13.5` interpreter:
+
+```powershell
+py -3.13 -m venv .venv
+.venv\Scripts\Activate.ps1
+```
+
+Every `make` target runs the `python` on `PATH`, so run `make` with the environment
+activated, or pass its interpreter explicitly with `make <target> PYTHON=<path>`.
+The `sync` targets refuse to install outside a virtual environment.
+
+Dependencies are pinned to exact versions in `requirements.txt` (runtime),
+`requirements-dev.txt` (adds the development tooling), and `requirements-tracking.txt`
+(adds MLflow). On Windows the pinned PyTorch is the CUDA build `2.11.0+cu128`, which
+`requirements.txt` takes from the PyTorch wheel index
+`https://download.pytorch.org/whl/cu128`; a plain `pip install torch` would install a
+CPU-only build.
 
 Install runtime dependencies:
 

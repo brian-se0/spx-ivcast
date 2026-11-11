@@ -86,4 +86,13 @@ def test_readme_documents_make_as_official_interface() -> None:
     )
     assert "never deletes or mutates the protected raw options directory" in readme
     assert "Direct script invocation is not the documented workflow" in readme
-    assert "uv run python scripts/01_ingest_cboe.py" not in readme
+    assert "python scripts/01_ingest_cboe.py" not in readme
+    assert "py -3.13 -m venv .venv" in readme
+    assert "python -m pip install -r requirements-dev.txt" in readme
+    for requirements_file in (
+        "requirements.txt",
+        "requirements-dev.txt",
+        "requirements-tracking.txt",
+    ):
+        assert f"`{requirements_file}`" in readme
+        assert (_repo_root() / requirements_file).is_file()

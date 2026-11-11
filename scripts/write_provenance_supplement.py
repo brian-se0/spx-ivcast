@@ -199,40 +199,41 @@ def main(
         "sample_start_date": raw_config.sample_start_date.isoformat(),
         "sample_end_date": raw_config.sample_end_date.isoformat(),
         "reproduction_commands": [
-            "uv sync --extra dev",
-            "uv run python scripts/install_mac_lightgbm_no_openmp.py",
+            "python -m pip install -r requirements-dev.txt",
+            'python -m pip install -e ".[dev]"',
+            "python scripts/install_mac_lightgbm_no_openmp.py",
             (
-                "uv run python scripts/check_runtime.py --raw-config-path "
+                "python scripts/check_runtime.py --raw-config-path "
                 "configs/data/raw.mac.yaml --run-profile-name mac_cpu "
                 "--neural-config-path configs/models/neural_surface.mac_cpu.yaml "
                 "--lightgbm-config-path configs/models/lightgbm.mac_cpu.yaml"
             ),
             (
-                "uv run python scripts/05_tune_models.py neural_surface --raw-config-path "
+                "python scripts/05_tune_models.py neural_surface --raw-config-path "
                 "configs/data/raw.mac.yaml --neural-config-path "
                 "configs/models/neural_surface.mac_cpu.yaml --lightgbm-config-path "
                 "configs/models/lightgbm.mac_cpu.yaml"
             ),
             (
-                "uv run python scripts/06_run_walkforward.py --raw-config-path "
+                "python scripts/06_run_walkforward.py --raw-config-path "
                 "configs/data/raw.mac.yaml --run-profile-name mac_cpu "
                 "--neural-config-path configs/models/neural_surface.mac_cpu.yaml "
                 "--lightgbm-config-path configs/models/lightgbm.mac_cpu.yaml"
             ),
             (
-                "uv run python scripts/07_run_stats.py --raw-config-path "
+                "python scripts/07_run_stats.py --raw-config-path "
                 "configs/data/raw.mac.yaml --run-profile-name mac_cpu"
             ),
             (
-                "uv run python scripts/08_run_hedging_eval.py --raw-config-path "
+                "python scripts/08_run_hedging_eval.py --raw-config-path "
                 "configs/data/raw.mac.yaml --run-profile-name mac_cpu"
             ),
             (
-                "uv run python scripts/09_make_report_artifacts.py --raw-config-path "
+                "python scripts/09_make_report_artifacts.py --raw-config-path "
                 "configs/data/raw.mac.yaml --run-profile-name mac_cpu"
             ),
             (
-                "uv run python scripts/export_tuning_diagnostics.py --raw-config-path "
+                "python scripts/export_tuning_diagnostics.py --raw-config-path "
                 "configs/data/raw.mac.yaml"
             ),
         ],

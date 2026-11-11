@@ -161,10 +161,16 @@ def collect_execution_identity(repo_root: Path | None = None) -> dict[str, Any]:
     """
 
     root = (repo_root or Path(__file__).resolve().parents[2]).resolve()
+    dependency_paths = (
+        root / "pyproject.toml",
+        root / "requirements.txt",
+        root / "requirements-dev.txt",
+        root / "requirements-tracking.txt",
+    )
     source_paths = {
         *root.glob("src/ivcast/**/*.py"),
         *root.glob("scripts/**/*.py"),
-        *(path for path in (root / "pyproject.toml", root / "uv.lock") if path.is_file()),
+        *(path for path in dependency_paths if path.is_file()),
     }
     source_records = [
         {"path": path.relative_to(root).as_posix(), "sha256": sha256_file(path)}
@@ -236,7 +242,7 @@ def _log_to_mlflow(
     except ImportError as exc:
         message = (
             "MLflow logging was requested, but mlflow is not installed. "
-            "Install the tracking extra with `uv sync --extra tracking`."
+            "Install the tracking extra with `make sync-tracking`."
         )
         raise RuntimeError(message) from exc
 
