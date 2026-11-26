@@ -1,0 +1,105 @@
+filters:
+  and:
+    - file.inFolder("research/notes/literature")
+    - file.hasTag("literature")
+properties:
+  file.name:
+    displayName: Note
+  title:
+    displayName: Title
+  year:
+    displayName: Year
+  venue:
+    displayName: Venue
+  status:
+    displayName: Status
+  asset_class:
+    displayName: Asset class
+  sample_period:
+    displayName: Sample
+  forecast_object:
+    displayName: Forecast object
+  horizon:
+    displayName: Horizon
+  methods:
+    displayName: Methods
+  benchmarks:
+    displayName: Benchmarks
+  evaluation_design:
+    displayName: Evaluation design
+  loss_metrics:
+    displayName: Loss metrics
+  headline_finding:
+    displayName: Headline finding
+  pdf:
+    displayName: PDF
+  pdf_version:
+    displayName: PDF version
+views:
+  - type: table
+    name: "Cited in the paper"
+    filters:
+      and:
+        - 'status == "cited"'
+    order:
+      - file.name
+      - note.year
+      - note.venue
+      - note.asset_class
+      - note.sample_period
+      - note.forecast_object
+      - note.horizon
+      - note.evaluation_design
+      - note.headline_finding
+      - note.pdf
+  - type: table
+    name: "Forecasting evidence"
+    filters:
+      or:
+        - file.hasTag("literature/forecasting")
+        - file.hasTag("literature/machine-learning")
+    order:
+      - file.name
+      - note.year
+      - note.status
+      - note.asset_class
+      - note.sample_period
+      - note.horizon
+      - note.methods
+      - note.benchmarks
+      - note.evaluation_design
+      - note.loss_metrics
+      - note.headline_finding
+  - type: table
+    name: "In the library, not cited"
+    filters:
+      and:
+        - 'status == "uncited"'
+    order:
+      - file.name
+      - note.year
+      - note.venue
+      - note.forecast_object
+      - note.headline_finding
+      - note.pdf
+  - type: table
+    name: "Cited without a PDF"
+    filters:
+      and:
+        - 'status == "cited"'
+        - 'pdf_version == "none"'
+    order:
+      - file.name
+      - note.year
+      - note.venue
+      - note.doi
+  - type: table
+    name: "By theme"
+    groupBy:
+      property: note.status
+      direction: ASC
+    order:
+      - file.name
+      - note.year
+      - note.tags
+      - note.headline_finding
