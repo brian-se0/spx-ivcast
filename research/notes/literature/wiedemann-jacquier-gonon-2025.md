@@ -68,5 +68,5 @@ tags:
 - The SVI benchmark ignores the calendar arbitrage condition.
 
 ## Use in this study
-- [[paper#Literature Review]]: example of smoothing or completion treated as a learning problem of its own, with a learned operator mapping irregular quotes to a surface.
+- [[paper#Literature Review]]: example of smoothing or completion treated as a modeling problem of its own, with a learned operator mapping irregular quotes to a surface.
 - [[paper#Literature Review]]: cited again, for full surfaces, in support of the point that dense-surface recovery is a substantive modelling task.
