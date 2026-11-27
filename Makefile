@@ -20,7 +20,7 @@ endif
 .PHONY: help sync sync-dev sync-tracking lint test typecheck check check-runtime official-smoke clean clean-ingest clean-silver clean-surfaces clean-features clean-hpo clean-train clean-stats clean-hedging clean-report ingest silver surfaces features hpo hpo-all hpo-ridge hpo-elasticnet hpo-har-factor hpo-lightgbm hpo-random-forest hpo-neural-surface hpo-30 hpo-100 tune tune-all train train-30 train-100 walkforward stats hedging report stats-sensitivity postmortem pipeline pipeline-30 pipeline-100 all
 
 help:
-	@Write-Host "Official ECON499 workflow targets:"
+	@Write-Host "Official spx-ivcast workflow targets:"
 	@Write-Host "Run make inside the project virtual environment, or pass PYTHON=<path>."
 	@Write-Host "  make sync             - install pinned runtime dependencies with pip"
 	@Write-Host "  make sync-dev         - install pinned runtime + dev dependencies"
