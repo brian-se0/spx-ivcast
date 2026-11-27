@@ -5,35 +5,39 @@ filters:
 properties:
   file.name:
     displayName: Note
-  title:
+  note.title:
     displayName: Title
-  year:
+  note.year:
     displayName: Year
-  venue:
+  note.venue:
     displayName: Venue
-  status:
+  note.status:
     displayName: Status
-  asset_class:
+  note.asset_class:
     displayName: Asset class
-  sample_period:
+  note.sample_period:
     displayName: Sample
-  forecast_object:
+  note.forecast_object:
     displayName: Forecast object
-  horizon:
+  note.horizon:
     displayName: Horizon
-  methods:
+  note.methods:
     displayName: Methods
-  benchmarks:
+  note.benchmarks:
     displayName: Benchmarks
-  evaluation_design:
+  note.evaluation_design:
     displayName: Evaluation design
-  loss_metrics:
+  note.loss_metrics:
     displayName: Loss metrics
-  headline_finding:
+  note.headline_finding:
     displayName: Headline finding
-  pdf:
+  note.pdf:
     displayName: PDF
-  pdf_version:
+  note.doi:
+    displayName: DOI
+  note.tags:
+    displayName: Tags
+  note.pdf_version:
     displayName: PDF version
 views:
   - type: table
